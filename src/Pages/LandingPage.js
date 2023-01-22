@@ -2,8 +2,6 @@ import { Box, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import Content from '../Components/Content'
 import "./landingPage.css"
- 
-
 
 
 function LandingPage() {
@@ -16,7 +14,7 @@ function LandingPage() {
         setLoading(true);
         fetchData("https://mocki.io/v1/ee762599-31ae-4a3d-a6c7-d596525945e1");
 
-    }, [vindex])
+    }, [])
 
     const fetchData = (url) => {
 
@@ -40,34 +38,20 @@ function LandingPage() {
  
 
     }
-    const setter=(value)=>{
-       
-        if(value=='Heading 1')
-        {
-           setVindex(+0);
-        }
-        else if(value=="heading 2")
-        {
-          setVindex(+1);
-        }
-        else{
-            setVindex(+2);
-        }
-
-    }
+    
     const v1="https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/6341303c29c5340961dc9ae6_Mco-1-transcode.mp4";
     const v2="https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/63413ff244f1dc616b7148a0_Mco-transcode.mp4";
     const v3="https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/63455a67996ba248148c4e31_add-options%20(3)-transcode.mp4";
-    const vidIndex=0;
+     
     const videos=[v1,v2,v3];
      
 
   
 
     return (
+          loading?<Text fontSize="50px">...loading</Text>: <Box mt="100px">
 
-
-        <Box mt="100px">
+            
 
             <Box display="flex" flexDirection="column" gap="30px" w="50%" margin="auto" padding="35px" mt="30px" mb="80px" lineHeight="1.5rem" fontFamily="Gtwalsheimpro,sans-serif">
                 <Text class="subheading">Double the hires, half the effort</Text>
@@ -76,9 +60,9 @@ function LandingPage() {
 
             <Box display="flex" gap="40px">
                 <Box display="flex" flexDirection="column" gap="200px" w="50%">
-                    {data.map((ele) => {
+                    {data.map((ele,index) => {
 
-                        return <Content heading={ele.heading} subheading={ele.subHeading} description={ele.description}   />
+                        return <Box onMouseOver={()=>setVindex(index)} ><Content heading={ele.heading} subheading={ele.subHeading} description={ele.description}   /></Box>
 
                     })}
                 </Box>
@@ -90,14 +74,7 @@ function LandingPage() {
                         {/* <video  autoplay="true"  style="background-image:url(&quot;https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/63455a67996ba248148c4e31_add-options(3)-poster-00001.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover"><source src="https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/63455a67996ba248148c4e31_add-options (3)-transcode.mp4" data-wf-ignore="true"/><source src="https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/63455a67996ba248148c4e31_add-options (3)-transcode.webm" data-wf-ignore="true"/></video> */}
                         <Box >
 
-                        <video class="video"  src = {videos[vindex]} autoPlay muted onEnded={() => {
-                            if(vindex==2)
-                            {
-                                setVindex(0);
-                            }
-                            setVindex(vindex+1)
-                            
-                            }} />
+                        <video class="video"  src = {videos[vindex]} autoPlay muted  />
                             
                         </Box>
 
